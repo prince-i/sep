@@ -10,15 +10,17 @@
 <body>
     <?php 
         include '../function/session.php';
+        include '../modal/logout.php';
+        include '../modal/request_form.php';
     ?>
     <!-- NAV -->
     <nav class="nav-extended #004d40 teal darken-4 z-depth-5">
         <div class="nav-wrapper">
-        <a href="#" class="brand-logo center"><img src="../Img/logo.png" alt="" class="responsive-img" style="width:50px;"></a>
+        <a href="#" class="brand-logo center"><img src="" alt="" class="responsive-img" style="width:50px;"></a>
         <a href="#">Requestor Dashboard</a>
         <a href="#" data-target="mobile-demo" class="sidenav-trigger"><span style="font-size:20px;font-weight:bold;">&plus;</span></a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a href="#" data-target="acct_option" class="dropdown-trigger"><?=ucwords($name)."-".ucwords($position);?></a></li>
+            <li><a href="#" data-target="modal_logout" class="modal-trigger"><?=ucwords($name)."-".ucwords($position);?></a></li>
         </ul>
         </div>
         <div class="nav-content">
@@ -32,9 +34,9 @@
     </nav>
 
     <ul class="sidenav" id="mobile-demo">
-    <li><a href="#" class="modal-trigger" data-target="logout_form"><?=ucwords($name);?></a></li>
+    <li><a href="#" class="modal-trigger" data-target="modal_logout"><?=ucwords($name);?></a></li>
     </ul>
-
+    
     <!-- TAB CONTENTS -->
     <!-- REQUEST TAB -->
     <div class="col s12" id="request">
@@ -54,8 +56,8 @@
                     </select>
                 </div>
 
-                <div class="col s3 right input-field">
-                    <button class="btn #006064 cyan darken-4 col s12">Request &plus;</button>
+                <div class="col s2 right input-field">
+                    <button class="btn #006064 cyan darken-4 col s12 modal-trigger" data-target="modal_request_sep">Request &plus;</button>
                 </div>
             </div>
             <!-- TABLE -->
@@ -86,6 +88,12 @@
     <script>
         $(document).ready(function(){
             $('.tabs').tabs();
+            $('.modal').modal();
+            $('.sidenav').sidenav({
+                preventScrolling: true,
+                draggable: true,
+                inDuration: 500
+            });
         }); 
     </script>
 </body>
