@@ -12,6 +12,7 @@ if(isset($_SESSION['username'])){
         $name = $u['name'];
         $email = $u['email_add'];
         $position = $u['position'];
+        $section = $u['section'];
     }
 }else{
     session_unset();
