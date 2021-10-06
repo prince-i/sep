@@ -80,7 +80,7 @@
         <!-- UPDATE FORM -->
         <div class="col s12" id="update_form" style="display:none;">
           <div class="col s3 input-field">
-            <input type="text" name="" value="" class="datepicker" style="border:1px solid green;color:green;"><label for="">ACTUAL DATE</label>
+            <input type="text" name="" value="" id="actual_date" class="datepicker" style="border:1px solid green;color:green;"><label for="">ACTUAL DATE</label>
           </div>
           <div class="col s3 input-field">
             <select class="browser-default z-depth-4" name="" id="training_status" style="border:1px solid green;color:green;">
@@ -256,12 +256,16 @@
       }
 
         function get_to_update(){
+          var actual_date = document.getElementById('actual_date').value;
+          var training_status = document.getElementById('training_status').value;
+          var training_app = document.getElementById('training_approval').value;
+          var remarks = document.getElementById('remarks').value;
           var id = [];
           $('input.singleCheck:checkbox:checked').each(function(){
               id.push($(this).val());
           });
           console.log(id);
-          
+
         }
 
         </script>
