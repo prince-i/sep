@@ -146,27 +146,7 @@
           </tr>
         </thead>
         <tbody id="sep_data">
-          <!-- <tr style="border:1px solid black;text-align:center;">
-          <td rowspan="2" style="border:1px solid black;text-align:center;"></td>
-          <td rowspan="2" style="border:1px solid black;text-align:center;"></td>
-          <td rowspan="2" style="border:1px solid black;text-align:center;"></td>
-          <td rowspan="2" style="border:1px solid black;text-align:center;"></td>
-          <td rowspan="2" style="border:1px solid black;text-align:center;"></td>
-          <td rowspan="2" style="border:1px solid black;text-align:center;"></td>
-          <td rowspan="2" style="border:1px solid black;text-align:center;"></td>
-          <td rowspan="2" style="border:1px solid black;text-align:center;"></td>
-          <td rowspan="2" style="border:1px solid black;text-align:center;"></td>
-          <td rowspan="2" style="border:1px solid black;text-align:center;"></td>
-          <td style="border:1px solid black;text-align:center;"></td>
-          <td rowspan="2" style="border:1px solid black;text-align:center;"></td>
-          <td rowspan="2" style="border:1px solid black;text-align:center;"></td>
-          <td rowspan="2" style="border:1px solid black;text-align:center;"></td>
-          <td rowspan="2" style="border:1px solid black;text-align:center;"></td>
-          <td rowspan="2" style="border:1px solid black;text-align:center;"></td>
-        </tr>
-        <tr style="border:1px solid black;text-align:center;">
-          <td style="border:1px solid black;text-align:center;" rowspan="2"></td>
-        </tr> -->
+         <!-- DATA APPEARS HERE -->
         </tbody>
         </table>
       </div>
@@ -235,6 +215,16 @@
             }
             get_checked_length();
         }
+
+        function uncheck_all(){
+          var select_all = document.getElementById('check_all');
+                $('.singleCheck').each(function(){
+                    this.checked=false;
+                });
+            get_checked_length();
+        }
+
+
         // CHECK SELECTED ARRAY
         const get_checked_length =()=>{
           var checkedArr = [];
@@ -265,7 +255,45 @@
               id.push($(this).val());
           });
           console.log(id);
+          var count_array = id.length;
+          // console.log(count_array);
+          
+          if(count_array > 0){
+            if(actual_date =='' || training_status == '' || remarks == '' || training_app == ''){
+              swal('Please complete all the fields!','','info');
+            }else{
+              // RUN AJAX
+              $.ajax({
+                url: '../function/rts_controller.php',
+                type: 'POST',
+                cache: false,
+                data:{
+                  method: 'update_trainees',
+                  id:id,
+                  actual_date:actual_date,
+                  training_app:training_app,
+                  remarks:remarks,
+                  training_status:training_status
+                },success:function(response){
+                  console.log(response);
+                  if(response == 'success'){
+                    training();
+                    uncheck_all();
+                    $('#actual_date').val('');
+                    $('#remarks').val('');
+                    $('#training_status').val('');
+                    $('#training_approval').val('');
+                    swal('Updated successfully!','','success');
+                  }else{
+                    swal('Error','','error');
+                  }
+                }
+              });
 
+            }
+          }else{
+            swal('No item is selected!','','info');
+          }
         }
 
         </script>
