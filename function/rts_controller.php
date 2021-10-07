@@ -3,11 +3,12 @@
   $method = $_POST['method'];
 
   if($method == 'load_sep_training'){
-    $n = 0;
+     $n = 0;
      $year = $_POST['year'];
      $train_needs = $_POST['train_needs'];
      $section = $_POST['section'];
-     $sql = "SELECT *FROM sep_request WHERE schedule LIKE '$year%' AND training_needs LIKE '$train_needs%' AND section LIKE '$section%'";
+     $approval = $_POST['approval'];
+     $sql = "SELECT *FROM sep_request WHERE schedule LIKE '$year%' AND training_needs LIKE '$train_needs%' AND section LIKE '$section%' AND training_approval LIKE '$approval%'";
      $stmt = $conn->prepare($sql);
      $stmt->execute();
      if($stmt->rowCount() > 0){
@@ -50,9 +51,12 @@
             $st_status = '';
           }
 
-          if($x['training_approval'] == 'Y'){
+          if($x['training_approval'] == 'Y' || $x['training_approval'] == 'y'){
             $appr = 'YES';
-          }else{
+          }elseif($x['training_approval'] == 'P' || $x['training_approval'] == 'p'){
+            $appr = 'PENDING';
+          }
+          else{
             $appr = 'NO';
           }
 

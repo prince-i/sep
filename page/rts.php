@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RTS ADMIN</title>
     <link rel="stylesheet" href="../node_modules/materialize-css/dist/css/materialize.min.css">
+    <style media="screen">
+      select input{
+        height:auto;
+      }
+    </style>
 </head>
 <body>
     <?php
@@ -75,6 +80,21 @@
             ?>
             </select>
           </div>
+          <!-- TRAINING APPROVAL -->
+
+          <div class="col s3 input-field">
+            <select class="browser-default z-depth-4" onchange="training()" name="" id="approval_filter" style="border:1px solid green;color:green;">
+            <option value="">All Approval Status</option>
+            <option value="P">Pending</option>
+            <option value="Y">Approved</option>
+            <option value="N">Disapproved</option>
+            </select>
+          </div>
+
+
+          <div class="col s2 input-field right">
+            <button type="button" name="button" class="col s12 blue btn" onclick="export_sep_form()">Print SEP Form</button>
+          </div>
 
         </div>
         <!-- UPDATE FORM -->
@@ -107,48 +127,52 @@
           </div>
         </div>
 
+        <div class="row">
+          <div class="col s12 collection" style="height:70vh;overflow:auto;">
+            <table style="border:1px solid black;zoom:70%;" class="">
+            <thead style="border:1px solid black;">
+              <tr style="border:1px solid black;">
+                <th rowspan="3" style="border:1px solid black;text-align:center;">
+                  <p>
+                  <label>
+                    <input type="checkbox" class="filled-in" id="check_all" onchange="select_all_func()"/>
+                    <span></span>
+                  </label>
+                </p>
 
-        <table style="border:1px solid black;zoom:80%;" class="">
-        <thead style="border:1px solid black;">
-          <tr style="border:1px solid black;">
-            <th rowspan="3" style="border:1px solid black;text-align:center;">
-              <p>
-              <label>
-                <input type="checkbox" class="filled-in" id="check_all" onchange="select_all_func()"/>
-                <span></span>
-              </label>
-            </p>
+                </th>
+                <th rowspan="3" style="border:1px solid black;text-align:center;"> NO.</th>
+                <th rowspan="3" style="border:1px solid black;text-align:center;">BATCH#</th>
+                <th rowspan="3" style="border:1px solid black;text-align:center;">NAME</th>
+                <th rowspan="3" style="border:1px solid black;text-align:center;">POSITION</th>
+                <th rowspan="3" style="border:1px solid black;text-align:center;">DEPARTMENT/SECTION</th>
+                <th colspan="4" style="border:1px solid black;text-align:center;">TRAINING NEEDS</th>
+                <th style="border:1px solid black;text-align:center;">SCHEDULE</th>
+                <th colspan="3" rowspan="2" style="border:1px solid black;text-align:center;">TRAINING STATUS</th>
+                <th rowspan="3" style="border:1px solid black;text-align:center;">TRAINING APPROVAL</th>
+                <th rowspan="3" style="border:1px solid black;text-align:center;">REMARKS</th>
+              </tr>
+              <tr style="border:1px solid black;">
+                <th rowspan="2" style="border:1px solid black;text-align:center;">Expert Training</th>
+                <th rowspan="2" style="border:1px solid black;text-align:center;">Jr. Staff Training</th>
+                <th rowspan="2" style="border:1px solid black;text-align:center;">Staff Training</th>
+                <th rowspan="2" style="border:1px solid black;text-align:center;">Reason for Training</th>
+                <th style="border:1px solid black;text-align:center;">Planned Date<br>(mm-dd-yy)</th>
+              </tr>
+              <tr style="border:1px solid black;text-align:center;">
+                <th style="border:1px solid black;text-align:center;background-color:gray;">Actual Date<br>(mm-dd-yy)</th>
+                <th style="border:1px solid black;text-align:center;">ET</th>
+                <th style="border:1px solid black;text-align:center;">JT</th>
+                <th style="border:1px solid black;text-align:center;">ST</th>
+              </tr>
+            </thead>
+            <tbody id="sep_data">
+             <!-- DATA APPEARS HERE -->
+            </tbody>
+            </table>
+          </div>
+        </div>
 
-            </th>
-            <th rowspan="3" style="border:1px solid black;text-align:center;"> NO.</th>
-            <th rowspan="3" style="border:1px solid black;text-align:center;">BATCH#</th>
-            <th rowspan="3" style="border:1px solid black;text-align:center;">NAME</th>
-            <th rowspan="3" style="border:1px solid black;text-align:center;">POSITION</th>
-            <th rowspan="3" style="border:1px solid black;text-align:center;">DEPARTMENT/SECTION</th>
-            <th colspan="4" style="border:1px solid black;text-align:center;">TRAINING NEEDS</th>
-            <th style="border:1px solid black;text-align:center;">SCHEDULE</th>
-            <th colspan="3" rowspan="2" style="border:1px solid black;text-align:center;">TRAINING STATUS</th>
-            <th rowspan="3" style="border:1px solid black;text-align:center;">TRAINING APPROVAL</th>
-            <th rowspan="3" style="border:1px solid black;text-align:center;">REMARKS</th>
-          </tr>
-          <tr style="border:1px solid black;">
-            <th rowspan="2" style="border:1px solid black;text-align:center;">Expert Training</th>
-            <th rowspan="2" style="border:1px solid black;text-align:center;">Jr. Staff Training</th>
-            <th rowspan="2" style="border:1px solid black;text-align:center;">Staff Training</th>
-            <th rowspan="2" style="border:1px solid black;text-align:center;">Reason for Training</th>
-            <th style="border:1px solid black;text-align:center;">Planned Date<br>(mm-dd-yy)</th>
-          </tr>
-          <tr style="border:1px solid black;text-align:center;">
-            <th style="border:1px solid black;text-align:center;background-color:gray;">Actual Date<br>(mm-dd-yy)</th>
-            <th style="border:1px solid black;text-align:center;">ET</th>
-            <th style="border:1px solid black;text-align:center;">JT</th>
-            <th style="border:1px solid black;text-align:center;">ST</th>
-          </tr>
-        </thead>
-        <tbody id="sep_data">
-         <!-- DATA APPEARS HERE -->
-        </tbody>
-        </table>
       </div>
       <!-- ACCT MANAGEMENT -->
       <div class="col s12" id="account">
@@ -184,6 +208,7 @@
           var year = document.getElementById('year_filter_sep').value;
           var train_needs = document.getElementById('training_needs_filter').value;
           var section = document.getElementById('section_filter').value;
+          var approval = document.getElementById('approval_filter').value;
           $.ajax({
             url: '../function/rts_controller.php',
             type: 'POST',
@@ -192,7 +217,8 @@
               method: 'load_sep_training',
               year:year,
               train_needs:train_needs,
-              section:section
+              section:section,
+              approval:approval
             },success:function(response){
               // console.log(response);
               document.getElementById('sep_data').innerHTML = response;
@@ -257,7 +283,7 @@
           console.log(id);
           var count_array = id.length;
           // console.log(count_array);
-          
+
           if(count_array > 0){
             if(actual_date =='' || training_status == '' || remarks == '' || training_app == ''){
               swal('Please complete all the fields!','','info');
@@ -296,6 +322,13 @@
           }
         }
 
+        function export_sep_form(){
+          var year = document.getElementById('year_filter_sep').value;
+          var train_needs = document.getElementById('training_needs_filter').value;
+          var section = document.getElementById('section_filter').value;
+          var approval = document.getElementById('approval_filter').value;
+          window.open('export_sep_form.php?year='+year+'&&training_needs='+train_needs+'&&section='+section+'&&approval='+approval,'_blank');
+        }
         </script>
 </body>
 </html>

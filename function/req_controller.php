@@ -20,8 +20,8 @@
       echo 'exists';
     }else{
       // INSERT THE REQUEST TO DB
-      $insert = "INSERT INTO sep_request (`requester`,`batch_num`,`employee_id`,`name`,`position`,`section`,`training_needs`,`reason`,`schedule`,`step`) VALUES
-      ('$username','$batch','$empid','$name','$position','$section','$training_needs','$reason','$schedule','$level')";
+      $insert = "INSERT INTO sep_request (`requester`,`batch_num`,`employee_id`,`name`,`position`,`section`,`training_needs`,`reason`,`schedule`,`step`,`training_approval`) VALUES
+      ('$username','$batch','$empid','$name','$position','$section','$training_needs','$reason','$schedule','$level','P')";
       $stmt = $conn->prepare($insert);
       if($stmt->execute()){
         echo 'success';

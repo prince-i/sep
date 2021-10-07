@@ -19,7 +19,7 @@
                     </div>
                     <!-- PASSWORD -->
                     <div class="col s12 input-field">
-                        <input type="text" name="password" id="password">
+                        <input type="password" name="password" id="password">
                         <label for="password">Password</label>
                     </div>
                     <!-- BUTTON -->
